@@ -15,7 +15,6 @@ dependencies = [
     'matplotlib',
     'scipy',
     'h5py',
-    'pycolmap @ git+https://github.com/mihaidusmanu/pycolmap',
 ]
 
 setup(
