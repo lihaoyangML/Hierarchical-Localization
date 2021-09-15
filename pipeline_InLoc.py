@@ -30,3 +30,5 @@ match_path = match_features.main(matcher_conf, loc_pairs, feature_conf['output']
 localize_inloc.main(
     dataset, loc_pairs, feature_path, match_path, results,
     skip_matches=20)  # skip database images with too few matches
+
+print("done")
