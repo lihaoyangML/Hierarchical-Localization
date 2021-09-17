@@ -135,8 +135,8 @@ def visualize_loc(results, image_dir, sfm_model=None, top_k_db=2,
             add_text(1, db_name, pos=(0.01, 0.01), fs=5,
                      lcolor=None, va='bottom')
             
-def save_visualize_loc_images(results, image_dir, sfm_model=None, top_k_db=2,
-                  selected=[], n=1, seed=0, prefix=None, dpi=75, save_path):
+def save_visualize_loc_images(save_path, results, image_dir, sfm_model=None, top_k_db=2,
+                  selected=[], n=1, seed=0, prefix=None, dpi=75):
     assert image_dir.exists()
 
     with open(str(results)+'_logs.pkl', 'rb') as f:
@@ -214,4 +214,4 @@ def save_visualize_loc_images(results, image_dir, sfm_model=None, top_k_db=2,
             add_text(0, q, pos=(0.01, 0.01), fs=5, lcolor=None, va='bottom')
             add_text(1, db_name, pos=(0.01, 0.01), fs=5,
                      lcolor=None, va='bottom')
-    save_plot("outputs/inloc/visualize.png")
+    save_plot(save_path)

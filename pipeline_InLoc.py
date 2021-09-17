@@ -31,6 +31,7 @@ localize_inloc.main(
     dataset, loc_pairs, feature_path, match_path, results,
     skip_matches=20)  # skip database images with too few matches
 
-visualization.save_visualize_loc_images(results, dataset, n=1, top_k_db=1, seed=2)
+save_path = "outputs/inloc/visualize.png"
+visualization.save_visualize_loc_images(save_path, results, dataset, n=1, top_k_db=1, seed=2)
 
 print("done")

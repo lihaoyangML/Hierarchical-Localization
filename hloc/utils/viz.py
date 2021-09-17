@@ -120,6 +120,6 @@ def add_text(idx, text, pos=(0.01, 0.99), fs=15, color='w',
             path_effects.Normal()])
 
 
-def save_plot(path, **kw):
+def save_plot(path):
     """Save the current figure without any white margin."""
-    plt.savefig(path, bbox_inches='tight', pad_inches=0, **kw)
+    plt.savefig(path, bbox_inches='tight', pad_inches=0)
