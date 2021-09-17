@@ -5,7 +5,7 @@ import pickle
 
 from .utils.read_write_model import read_images_binary, read_points3D_binary
 from .utils.viz import (
-        plot_images, plot_keypoints, plot_matches, cm_RdGn, add_text)
+        plot_images, plot_keypoints, plot_matches, cm_RdGn, add_text, save_plot)
 from .utils.io import read_image
 
 
