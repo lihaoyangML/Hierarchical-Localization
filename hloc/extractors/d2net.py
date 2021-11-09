@@ -24,7 +24,7 @@ class D2Net(BaseModel):
         model_file = conf['checkpoint_dir'] / conf['model_name']
         if not model_file.exists():
             model_file.parent.mkdir(exist_ok=True)
-            cmd = ['wget', 'https://dsmn.ml/files/d2-net/'+conf['model_name'],
+            cmd = ['wget', '--no-check-certificate','https://dsmn.ml/files/d2-net/'+conf['model_name'],
                    '-O', str(model_file)]
             subprocess.run(cmd, check=True)
 
