@@ -136,27 +136,34 @@ def main(dataset_dir, retrieval, features, matches, results,
         'loc': {},
     }
     logging.info('Starting localization...')
+    
     skipped_queries = []
     
     for q in tqdm(queries):
-        db = retrieval_dict[q]
-        ret, mkpq, mkpr, mkp3d, indices, num_matches = pose_from_cluster(
-            dataset_dir, q, db, feature_file, match_file, skip_matches)
+        try:
+            db = retrieval_dict[q]
+            ret, mkpq, mkpr, mkp3d, indices, num_matches = pose_from_cluster(
+                dataset_dir, q, db, feature_file, match_file, skip_matches)
 
-        poses[q] = (ret['qvec'], ret['tvec'])
-        logs['loc'][q] = {
-            'db': db,
-            'PnP_ret': ret,
-            'keypoints_query': mkpq,
-            'keypoints_db': mkpr,
-            '3d_points': mkp3d,
-            'indices_db': indices,
-            'num_matches': num_matches,
-        }
-
+            poses[q] = (ret['qvec'], ret['tvec'])
+            logs['loc'][q] = {
+                'db': db,
+                'PnP_ret': ret,
+                'keypoints_query': mkpq,
+                'keypoints_db': mkpr,
+                '3d_points': mkp3d,
+                'indices_db': indices,
+                'num_matches': num_matches,
+            }
+        except Exception as e:
+            skipped_queries.append(q)
+            print("error found while localizing {} : {}".format(q.split("/")[-1], e))
+         
     logging.info(f'Writing poses to {results}...')
     with open(results, 'w') as f:
         for q in queries:
+            if q in skipped_queries:
+                continue
             qvec, tvec = poses[q]
             qvec = ' '.join(map(str, qvec))
             tvec = ' '.join(map(str, tvec))

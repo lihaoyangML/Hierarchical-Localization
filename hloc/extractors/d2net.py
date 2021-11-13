@@ -31,7 +31,7 @@ class D2Net(BaseModel):
         self.net = _D2Net(
             model_file=model_file,
             use_relu=conf['use_relu'],
-            use_cuda=True)
+            use_cuda=False)
 
     def _forward(self, data):
         image = data['image']
