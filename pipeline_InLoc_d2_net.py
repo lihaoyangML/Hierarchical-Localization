@@ -21,7 +21,7 @@ print(f'Configs for feature matchers:\n{pformat(match_features.confs)}')
 # pick one of the configurations for extraction and matching
 # you can also simply write your own here!
 feature_conf = extract_features.confs['d2net-ss']
-matcher_conf = match_features.confs['superglue']
+matcher_conf = match_features.confs['NN-ratio']
 
 feature_path = extract_features.main(feature_conf, dataset, outputs)
 
@@ -29,7 +29,7 @@ match_path = match_features.main(matcher_conf, loc_pairs, feature_conf['output']
 
 localize_inloc.main(
     dataset, loc_pairs, feature_path, match_path, results,
-    skip_matches=20)  # skip database images with too few matches
+    skip_matches=None)  # skip database images with too few matches
 
 save_path = "outputs/inloc/visualize_d2_net.png"
 visualization.save_visualize_loc_images(save_path, results, dataset, n=1, top_k_db=1, seed=2)

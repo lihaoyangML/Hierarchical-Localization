@@ -120,7 +120,8 @@ def match_from_paths(conf: Dict, pairs_path: Path, match_path: Path,
         with open(pairs_path, 'w') as f:
             f.write('\n'.join(' '.join((n1, n2)) for n1, n2 in pairs))
 
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    #device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = 'cpu'
     Model = dynamic_load(matchers, conf['model']['name'])
     model = Model(conf['model']).eval().to(device)
 

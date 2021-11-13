@@ -70,6 +70,10 @@ def pose_from_cluster(dataset_dir, q, retrieved, feature_file, match_file,
     all_mkp3d = []
     all_indices = []
     kpq = feature_file[q]['keypoints'].__array__()
+   # print("==================== debug ======================")
+   # print("kpq: ", kpq)
+   # print("q: ", q)
+   # print("feature_file: ", feature_file)
     num_matches = 0
 
     for i, r in enumerate(retrieved):
@@ -88,12 +92,12 @@ def pose_from_cluster(dataset_dir, q, retrieved, feature_file, match_file,
         mkp3d, valid = interpolate_scan(scan_r, mkpr)
         Tr = get_scan_pose(dataset_dir, r)
         mkp3d = (Tr[:3, :3] @ mkp3d.T + Tr[:3, -1:]).T
-
+    #    print("mkpq: ", mkpq)
         all_mkpq.append(mkpq[valid])
         all_mkpr.append(mkpr[valid])
         all_mkp3d.append(mkp3d[valid])
         all_indices.append(np.full(np.count_nonzero(valid), i))
-
+   # print("all_mkpq: ", all_mkpq)
     all_mkpq = np.concatenate(all_mkpq, 0)
     all_mkpr = np.concatenate(all_mkpr, 0)
     all_mkp3d = np.concatenate(all_mkp3d, 0)
@@ -132,6 +136,8 @@ def main(dataset_dir, retrieval, features, matches, results,
         'loc': {},
     }
     logging.info('Starting localization...')
+    skipped_queries = []
+    
     for q in tqdm(queries):
         db = retrieval_dict[q]
         ret, mkpq, mkpr, mkp3d, indices, num_matches = pose_from_cluster(
